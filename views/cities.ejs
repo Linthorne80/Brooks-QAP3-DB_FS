@@ -14,12 +14,13 @@
         <% cities.forEach(city => { %>
             <li><%= city.name %>, <%= city.population %>
                 <a href="/cities/<%=city.city_id%>/edit?name=<%=city.name%>&population=<%=city.population%>">edit</a></li>
-                <a href="/cities/<%=city.city_id%>/delete=<%=city.name%>&population=<%=city.population%>">delete</a></li>
+                <a href="/cities/<%=city.city_id%>/delete?name=<%=city.name%>&population=<%=city.population%>">delete</a></li>
         <% }); %>
     </ul>
     
 
-    <form action="/cities" method="POST">
+    <form action="/cities" method="POST" action="/cities" method="DELETE">
+        
         <input type="text" name="name" placeholder="City Name">
         <input type="text" name="population" placeholder="City Population">
         <button type="submit">Add City</button>
