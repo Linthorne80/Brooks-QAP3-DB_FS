@@ -1,1 +1,1 @@
-UPDATE city SET city_name = 'Updated City' WHERE city_id = 1;
+UPDATE public.city SET, name=?, population=? WHERE <condition>;

@@ -1,1 +1,1 @@
-DELETE FROM city WHERE city_id = 1;
+DELETE FROM public.city WHERE city_id =id;

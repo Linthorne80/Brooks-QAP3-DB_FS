@@ -1,1 +1,1 @@
-SELECT * FROM city;
+SELECT city_id, name, population FROM public.city;

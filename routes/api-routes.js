@@ -2,12 +2,14 @@ const express = require('express');
 const router = express.Router();
 const cityDal = require('../dal/city-dal');
 
+
 router.get('/cities', async (req, res) => {
   try {
-    const cities = await cityDal.getAllCities();
-    res.json(cities);
+    const { id } = req.params;
+    const city = await cityDal.getCityById(id);
+    res.json(city);
   } catch (error) {
-    console.error('Error fetching cities:', error);
+    console.error('Error fetching city:', error);
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });

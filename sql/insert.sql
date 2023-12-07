@@ -1,1 +1,1 @@
-INSERT INTO city (city_name, country_id) VALUES ('Example City', 1);
+INSERT INTO public.city( name, population) VALUES (?, ?,);

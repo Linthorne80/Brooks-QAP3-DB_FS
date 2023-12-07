@@ -2,7 +2,8 @@ const express = require('express');
 const router = express.Router();
 const cityDal = require('../dal/city-dal');
 
-router.get('/cities', async (req, res) => {
+
+router.get('/cities', async (_req, res) => {
   try {
     const cities = await cityDal.getAllCities();
     res.render('cities', { cities });
@@ -11,6 +12,8 @@ router.get('/cities', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
+
+
 
 router.post('/cities', async (req, res) => {
   try {
@@ -23,17 +26,31 @@ router.post('/cities', async (req, res) => {
   }
 });
 
-router.put('/cities/:id', async (req, res) => {
+router.get('/cities/:id/edit', async (req, res) => {
+  console.log('city.Edit : ' + req.params.id);
+  res.render('citiesPatch.ejs', {name: req.query.name, population: req.query.population, theId: req.params.id});
+});
+
+router.patch('/cities/:id', async (req, res) => {
   try {
-    const { id } = req.params;
-    const { name, population } = req.body;
-    await cityDal.updateCity(id, name, population);
-    res.redirect('/cities');
-  } catch (error) {
-    console.error('Error updating city:', error);
-    res.status(500).send('Internal Server Error');
+      await cityDal.patchCity(req.params.id, req.body.name, req.body.population);
+      res.redirect('/cities/');
+  } catch {
+      // log this error to an error log file.
+      res.render('503');
   }
 });
+
+router.put('/cities/:id', async (req, res) => {
+  try {
+      await cityDal.putCity(req.params.id, req.body.name, req.body.population);
+      res.redirect('/cities/');
+  } catch {
+      // log this error to an error log file.
+      res.render('503');
+  }
+});
+
 
 router.delete('/cities/:id', async (req, res) => {
   try {
@@ -45,6 +62,4 @@ router.delete('/cities/:id', async (req, res) => {
     res.status(500).send('Internal Server Error');
   }
 });
-
-
 module.exports = router;
