@@ -15,6 +15,7 @@
             <li><%= city.name %>, <%= city.population %>
                 <a href="/cities/<%=city.city_id%>/edit?name=<%=city.name%>&population=<%=city.population%>">edit</a></li>
                 <a href="/cities/<%=city.city_id%>/delete?name=<%=city.name%>&population=<%=city.population%>">delete</a></li>
+                <a href="/cities/<%=city.city_id%>/replace?name=<%=city.name%>&population=<%=city.population%>">replace</a></li>
         <% }); %>
     </ul>
     

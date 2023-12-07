@@ -41,6 +41,14 @@ router.patch('/cities/:id', async (req, res) => {
   }
 });
 
+
+
+router.get('/cities/:id/replace', async (req, res) => {
+  console.log('city.Replace : ' + req.params.id);
+  res.render('citiesPut.ejs', {name: req.query.name, population: req.query.population, theId: req.params.id});
+});
+
+
 router.put('/cities/:id', async (req, res) => {
   try {
       await cityDal.putCity(req.params.id, req.body.name, req.body.population);
@@ -51,15 +59,19 @@ router.put('/cities/:id', async (req, res) => {
   }
 });
 
+router.get('/cities/:id/delete', async (req, res) => {
+  console.log('city.Delete : ' + req.params.id);
+  res.render('citiesDelete.ejs', {name: req.query.name, population: req.query.population, theId: req.params.id});
+});
+
 
 router.delete('/cities/:id', async (req, res) => {
   try {
-    const { id } = req.params;
-    await cityDal.deleteCity(id);
-    res.redirect('/cities');
-  } catch (error) {
-    console.error('Error deleting city:', error);
-    res.status(500).send('Internal Server Error');
+      await cityDal.patchCity(req.params.id, req.body.name, req.body.population);
+      res.redirect('/cities/');
+  } catch {
+      // log this error to an error log file.
+      res.render('503');
   }
 });
 module.exports = router;

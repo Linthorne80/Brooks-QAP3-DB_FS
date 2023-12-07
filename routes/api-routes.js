@@ -36,11 +36,10 @@ router.put('/cities/:id', async (req, res) => {
   }
 }); 
 
-router.delete('/cities/:id', async (req, res) => {
+router.delete('/cities/:id/delete', async (req, res) => {
   try {
-    const { id } = req.params;
     await cityDal.deleteCity(id);
-    res.sendStatus(204);
+    res.status(204).json({ message: 'Deletion successful' });
   } catch (error) {
     console.error('Error deleting city:', error);
     res.status(500).json({ error: 'Internal Server Error' });
